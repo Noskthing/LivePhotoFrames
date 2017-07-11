@@ -15,7 +15,7 @@
 
 - (void)contentEditManager:(ContentEditManager *)manager updateLivePhoto:(PHLivePhoto *)livePhoto;
 
-- (void)contentEditManager:(ContentEditManager *)manager updateTime:(NSString *)time;
+- (void)contentEditManager:(ContentEditManager *)manager updateTime:(NSString *)time scaleValue:(CGFloat)scale;
 @end
 
 @interface ContentEditManager : NSObject

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ObA-dk-sSI">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ObA-dk-sSI">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -30,10 +30,10 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="408"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lRm-qs-An9">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lRm-qs-An9">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="408"/>
                                         </imageView>
-                                        <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="Wmr-Ay-wlP" customClass="PHLivePhotoView">
+                                        <view hidden="YES" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="Wmr-Ay-wlP" customClass="PHLivePhotoView">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="408"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
@@ -74,9 +74,16 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="qKh-pe-un3">
+                                <rect key="frame" x="63" y="459" width="194" height="51"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="2Ku-Qq-PEw"/>
+                                </constraints>
+                            </slider>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="Ydk-nB-AX1" firstAttribute="leading" secondItem="qKh-pe-un3" secondAttribute="trailing" constant="10" id="0x4-hZ-pIx"/>
                             <constraint firstItem="Nk4-Y4-bWO" firstAttribute="top" secondItem="qkL-Od-lgU" secondAttribute="bottom" id="7YC-Q2-qgh"/>
                             <constraint firstItem="yCW-zv-5Dc" firstAttribute="top" secondItem="gF4-DB-93s" secondAttribute="bottom" constant="5" id="Gra-vb-dqX"/>
                             <constraint firstItem="n38-gi-rB5" firstAttribute="top" secondItem="Ydk-nB-AX1" secondAttribute="bottom" constant="15" id="IY6-n2-Oxb"/>
@@ -90,8 +97,10 @@
                             <constraint firstItem="wt7-3k-2pr" firstAttribute="leading" secondItem="zMn-AG-sqS" secondAttribute="leading" constant="10" id="jRT-A6-DQL"/>
                             <constraint firstItem="n38-gi-rB5" firstAttribute="top" secondItem="Nk4-Y4-bWO" secondAttribute="bottom" constant="100" id="oQe-RF-dBh"/>
                             <constraint firstItem="wt7-3k-2pr" firstAttribute="top" secondItem="gF4-DB-93s" secondAttribute="bottom" constant="15" id="oce-n5-sgd"/>
+                            <constraint firstItem="qKh-pe-un3" firstAttribute="top" secondItem="yCW-zv-5Dc" secondAttribute="bottom" constant="5" id="sbu-v1-qLi"/>
                             <constraint firstItem="n38-gi-rB5" firstAttribute="top" secondItem="wt7-3k-2pr" secondAttribute="bottom" constant="5" id="v2B-BJ-owi"/>
                             <constraint firstItem="Nk4-Y4-bWO" firstAttribute="leading" secondItem="zMn-AG-sqS" secondAttribute="leading" id="vPo-dv-RqY"/>
+                            <constraint firstItem="qKh-pe-un3" firstAttribute="leading" secondItem="wt7-3k-2pr" secondAttribute="trailing" constant="10" id="wxI-tT-huQ"/>
                             <constraint firstItem="gF4-DB-93s" firstAttribute="top" secondItem="qkL-Od-lgU" secondAttribute="bottom" id="yOm-8z-XrS"/>
                         </constraints>
                     </view>
@@ -101,6 +110,7 @@
                         <outlet property="backgroudImageView" destination="Nk4-Y4-bWO" id="CN2-tn-6eN"/>
                         <outlet property="livePhotoView" destination="Wmr-Ay-wlP" id="OSD-iL-ieE"/>
                         <outlet property="previewImageView" destination="lRm-qs-An9" id="vLR-zi-ixe"/>
+                        <outlet property="progressSlider" destination="qKh-pe-un3" id="AvI-2d-BL1"/>
                         <outlet property="timeLabel" destination="yCW-zv-5Dc" id="cpd-22-QW6"/>
                     </connections>
                 </viewController>

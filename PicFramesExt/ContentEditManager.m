@@ -42,13 +42,14 @@
             return frame.image;
         };
         
-        [self.delegate contentEditManager:self updateTime:[NSString stringWithFormat:@"%.2f/%.2f", CMTimeGetSeconds(self.livePhotoContext.photoTime), CMTimeGetSeconds(self.livePhotoContext.duration)]];
+        [self.delegate contentEditManager:self updateTime:[NSString stringWithFormat:@"%.2f/%.2f", CMTimeGetSeconds(self.livePhotoContext.photoTime), CMTimeGetSeconds(self.livePhotoContext.duration)] scaleValue:CMTimeGetSeconds(self.livePhotoContext.photoTime)/CMTimeGetSeconds(self.livePhotoContext.duration)];
+        [self.delegate contentEditManager:self updateLivePhoto:_input.livePhoto];
     }
-    CGSize size =  _input.displaySizeImage.size;
-    [self.livePhotoContext prepareLivePhotoForPlaybackWithTargetSize:size options:nil completionHandler:^(PHLivePhoto * _Nullable livePhoto, NSError * _Nullable error) {
-        [self.delegate contentEditManager:self updateLivePhoto:livePhoto];
-    }];
+    
+    
 }
+
+
 
 - (void)startContentEditingWithInput:(PHContentEditingInput *)contentEditingInput
 {

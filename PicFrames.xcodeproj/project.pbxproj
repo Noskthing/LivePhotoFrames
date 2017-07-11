@@ -203,12 +203,12 @@
 				TargetAttributes = {
 					6D6A1E501F1346D90008D8FE = {
 						CreatedOnToolsVersion = 8.3;
-						DevelopmentTeam = 3PTUS7X5AK;
+						DevelopmentTeam = WR4SY93GA4;
 						ProvisioningStyle = Automatic;
 					};
 					6D6A1E6E1F1347020008D8FE = {
 						CreatedOnToolsVersion = 8.3;
-						DevelopmentTeam = 3PTUS7X5AK;
+						DevelopmentTeam = WR4SY93GA4;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -409,7 +409,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 3PTUS7X5AK;
+				DEVELOPMENT_TEAM = WR4SY93GA4;
 				INFOPLIST_FILE = PicFrames/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.leebowen.PicFrames;
@@ -423,7 +423,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 3PTUS7X5AK;
+				DEVELOPMENT_TEAM = WR4SY93GA4;
 				INFOPLIST_FILE = PicFrames/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.leebowen.PicFrames;
@@ -436,7 +436,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 3PTUS7X5AK;
+				DEVELOPMENT_TEAM = WR4SY93GA4;
 				INFOPLIST_FILE = PicFramesExt/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.leebowen.PicFrames.PicFramesExt;
@@ -450,7 +450,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 3PTUS7X5AK;
+				DEVELOPMENT_TEAM = WR4SY93GA4;
 				INFOPLIST_FILE = PicFramesExt/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.leebowen.PicFrames.PicFramesExt;
