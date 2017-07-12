@@ -10,16 +10,19 @@
 #import <Photos/Photos.h>
 #import <PhotosUI/PhotosUI.h>
 #import "ContentEditManager.h"
+#import "GCDThrottle.h"
+#import "SliderView.h"
 
-@interface PhotoEditingViewController () <PHContentEditingController, ContentEditManagerDelegate>
+@interface PhotoEditingViewController () <PHContentEditingController, ContentEditManagerDelegate, SliderViewDelegate>
 @property (strong) PHContentEditingInput *input;
 @property (strong, nonatomic)ContentEditManager *contentEditManager;
 @property (strong, nonatomic)AVAsset * ava;
+@property (strong, nonatomic)AVAssetImageGenerator *assetImageGenerator;
 @property (weak, nonatomic) IBOutlet UIImageView *backgroudImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *previewImageView;
 @property (weak, nonatomic) IBOutlet PHLivePhotoView *livePhotoView;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
-@property (weak, nonatomic) IBOutlet UISlider *progressSlider;
+@property (weak, nonatomic) IBOutlet SliderView *sliderView;
 
 @end
 
@@ -35,26 +38,9 @@
     return _contentEditManager;
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
-}
-
-- (void)progressValueChange:(UISlider *)sender
+#pragma mark - Get frame from video
+- (UIImage *)thumbnailImageForVideo:(AVAssetImageGenerator *)assetImageGenerator atTime:(NSTimeInterval)time
 {
-    UIImage * im = [self thumbnailImageForVideo:_ava atTime:sender.value * _ava.duration.value];
-    self.previewImageView.image = im;
-    
-    self.timeLabel.text = [NSString stringWithFormat:@"%.2f/%.2f", (sender.value * CMTimeGetSeconds(_ava.duration)),CMTimeGetSeconds(_ava.duration)];
-}
-
-- (UIImage *)thumbnailImageForVideo:(AVAsset *)asset atTime:(NSTimeInterval)time {
-    NSLog(@"time is %f",time);
-    AVAssetImageGenerator *assetImageGenerator =[[AVAssetImageGenerator alloc] initWithAsset:asset];
-    assetImageGenerator.appliesPreferredTrackTransform = YES;
-    assetImageGenerator.apertureMode = AVAssetImageGeneratorApertureModeProductionAperture;
-    
     CGImageRef thumbnailImageRef = NULL;
     CFTimeInterval thumbnailImageTime = time;
     NSError *thumbnailImageGenerationError = nil;
@@ -63,8 +49,32 @@
     if(!thumbnailImageRef)
         NSLog(@"thumbnailImageGenerationError %@",thumbnailImageGenerationError);
     
-    UIImage *thumbnailImage = thumbnailImageRef ? [[UIImage alloc]initWithCGImage:thumbnailImageRef] : nil;
+    UIImage *thumbnailImage = thumbnailImageRef ? [[UIImage alloc]initWithCGImage:thumbnailImageRef]:nil;
     return thumbnailImage;
+}
+
+#pragma mark - Buttons Events
+- (IBAction)minusButtonTouch:(UIButton *)sender
+{
+    [self.sliderView scrollToLeft];
+}
+
+- (IBAction)addButtonTouched:(UIButton *)sender
+{
+    [self.sliderView scrollToRight];
+}
+
+#pragma mark - SliderView deledate
+- (void)sliderView:(SliderView * _Nullable)sliderView updateScale:(CGFloat)scale isTouchesEnded:(BOOL)isEnd
+{
+    self.timeLabel.text = [NSString stringWithFormat:@"%.2f/%.2f", (scale * CMTimeGetSeconds(_ava.duration)),CMTimeGetSeconds(_ava.duration)];
+    if (isEnd)
+    {
+        dispatch_throttle(0.5, ^{
+            UIImage * im = [self thumbnailImageForVideo:_assetImageGenerator atTime:scale * _ava.duration.value];
+            self.previewImageView.image = im;
+        });
+    }
 }
 
 #pragma mark - ContentEditManagerDelegate
@@ -80,15 +90,27 @@
         {
             
             [[PHAssetResourceManager defaultManager] writeDataForAssetResource:resources[1] toFile:[NSURL fileURLWithPath:PATH_MOVIE_FILE]options:nil completionHandler:^(NSError * _Nullable error) {
-                if (error) {
+                if (error)
+                {
                     NSLog(@"error is %@", error);
-                } else {
-                    NSData * data = [NSData dataWithContentsOfURL: [NSURL fileURLWithPath: PATH_MOVIE_FILE]];
-                    NSLog(@"DATA LENGHT %lu", (unsigned long)data.length);
+                }
+                else
+                {
                     _ava = [AVAsset assetWithURL:[NSURL fileURLWithPath: PATH_MOVIE_FILE]];
-                    NSLog(@"ava time is %d",_ava.duration.timescale);
                     
-                    [self.progressSlider addTarget:self action:@selector(progressValueChange:) forControlEvents:UIControlEventTouchUpInside];
+                    _assetImageGenerator =[[AVAssetImageGenerator alloc] initWithAsset:_ava];
+                    _assetImageGenerator.appliesPreferredTrackTransform = YES;
+                    _assetImageGenerator.apertureMode = AVAssetImageGeneratorApertureModeProductionAperture;
+                    
+                    NSMutableArray * images = [NSMutableArray array];
+                    for (int i = 1; i <= 10; i++)
+                    {
+                        CGFloat scale = i/10.;
+                        UIImage * tempImage = [self thumbnailImageForVideo:_assetImageGenerator atTime:scale * _ava.duration.value];
+                        [images addObject:tempImage];
+                    }
+                    [_sliderView drawBackgroudImage:[images copy]];
+                    _sliderView.delegate = self;
                 }
                 [[NSFileManager defaultManager] removeItemAtPath: PATH_MOVIE_FILE error: nil];
             }];
@@ -100,18 +122,18 @@
     }
 }
 
-- (void)contentEditManager:(ContentEditManager *)manager updateTime:(NSString *)time scaleValue:(CGFloat)scale
+- (void)contentEditManager:(ContentEditManager *)manager duration:(Float64)duration currentTime:(Float64)currentTime
 {
-    self.timeLabel.text = time;
-    self.progressSlider.value = scale;
+    self.timeLabel.text = [NSString stringWithFormat:@"%.2f/%.2f", currentTime, duration];
+    self.sliderView.scale = currentTime/duration;
+    self.sliderView.unitOfScale = 0.01/duration;
 }
 
 #pragma mark - PHContentEditingController
-
 - (BOOL)canHandleAdjustmentData:(PHAdjustmentData *)adjustmentData {
     // Inspect the adjustmentData to determine whether your extension can work with past edits.
     // (Typically, you use its formatIdentifier and formatVersion properties to do this.)
-    return [adjustmentData.formatIdentifier  isEqual:[[NSBundle bundleForClass:[ContentEditManager class]] bundleIdentifier]] && [adjustmentData.formatVersion  isEqual: @"1.0"];
+    return YES;
 }
 
 - (void)startContentEditingWithInput:(PHContentEditingInput *)contentEditingInput placeholderImage:(UIImage *)placeholderImage {
@@ -120,7 +142,7 @@
     // If you returned NO, the contentEditingInput has past edits "baked in".
     
     self.input = contentEditingInput;
-    NSLog(@"------");
+
     self.previewImageView.image = placeholderImage;
     self.backgroudImageView.image = placeholderImage;
     [self.contentEditManager startContentEditingWithInput:contentEditingInput];
@@ -134,11 +156,19 @@
         // Create editing output from the editing input.
         PHContentEditingOutput *output = [[PHContentEditingOutput alloc] initWithContentEditingInput:self.input];
         
+        //系统的方法会覆盖原图 所以不用注释提供的方法直接写入相册
+        
         // Provide new adjustments and render output to given location.
         // output.adjustmentData = <#new adjustment data#>;
         // NSData *renderedJPEGData = <#output JPEG#>;
         // [renderedJPEGData writeToURL:output.renderedContentURL atomically:YES];
-        
+        [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+            [PHAssetChangeRequest creationRequestForAssetFromImage:self.previewImageView.image];
+        } completionHandler:^(BOOL success, NSError * _Nullable error) {
+            if (!success)
+                return ;
+        }];
+    
         // Call completion handler to commit edit to Photos.
         completionHandler(output);
         

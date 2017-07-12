@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6D17D70D1F15D36200CF59F5 /* GCDThrottle.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D17D70C1F15D36200CF59F5 /* GCDThrottle.m */; };
+		6D17D7121F15FF6300CF59F5 /* SliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D17D7111F15FF6200CF59F5 /* SliderView.m */; };
+		6D17D7131F15FF6300CF59F5 /* SliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D17D7111F15FF6200CF59F5 /* SliderView.m */; };
+		6D17D7141F161F3C00CF59F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6D6A1E601F1346D90008D8FE /* Assets.xcassets */; };
 		6D6A1E561F1346D90008D8FE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D6A1E551F1346D90008D8FE /* main.m */; };
 		6D6A1E591F1346D90008D8FE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D6A1E581F1346D90008D8FE /* AppDelegate.m */; };
 		6D6A1E5C1F1346D90008D8FE /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D6A1E5B1F1346D90008D8FE /* ViewController.m */; };
@@ -47,6 +51,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6D17D70B1F15D36200CF59F5 /* GCDThrottle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDThrottle.h; sourceTree = "<group>"; };
+		6D17D70C1F15D36200CF59F5 /* GCDThrottle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDThrottle.m; sourceTree = "<group>"; };
+		6D17D7101F15FF6200CF59F5 /* SliderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SliderView.h; sourceTree = "<group>"; };
+		6D17D7111F15FF6200CF59F5 /* SliderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SliderView.m; sourceTree = "<group>"; };
 		6D6A1E511F1346D90008D8FE /* PicFrames.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PicFrames.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D6A1E551F1346D90008D8FE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6D6A1E571F1346D90008D8FE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -88,6 +96,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6D17D70E1F15FF2100CF59F5 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				6D17D70B1F15D36200CF59F5 /* GCDThrottle.h */,
+				6D17D70C1F15D36200CF59F5 /* GCDThrottle.m */,
+			);
+			name = Tools;
+			sourceTree = "<group>";
+		};
+		6D17D70F1F15FF3200CF59F5 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				6D17D7101F15FF6200CF59F5 /* SliderView.h */,
+				6D17D7111F15FF6200CF59F5 /* SliderView.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		6D6A1E481F1346D90008D8FE = {
 			isa = PBXGroup;
 			children = (
@@ -143,6 +169,8 @@
 		6D6A1E751F1347020008D8FE /* PicFramesExt */ = {
 			isa = PBXGroup;
 			children = (
+				6D17D70F1F15FF3200CF59F5 /* Views */,
+				6D17D70E1F15FF2100CF59F5 /* Tools */,
 				6D6A1E871F13883D0008D8FE /* ContentEditManager.h */,
 				6D6A1E881F13883D0008D8FE /* ContentEditManager.m */,
 				6D6A1E761F1347020008D8FE /* PhotoEditingViewController.h */,
@@ -247,6 +275,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D17D7141F161F3C00CF59F5 /* Assets.xcassets in Resources */,
 				6D6A1E7B1F1347020008D8FE /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -258,6 +287,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D17D7121F15FF6300CF59F5 /* SliderView.m in Sources */,
 				6D6A1E5C1F1346D90008D8FE /* ViewController.m in Sources */,
 				6D6A1E591F1346D90008D8FE /* AppDelegate.m in Sources */,
 				6D6A1E561F1346D90008D8FE /* main.m in Sources */,
@@ -269,6 +299,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D17D70D1F15D36200CF59F5 /* GCDThrottle.m in Sources */,
+				6D17D7131F15FF6300CF59F5 /* SliderView.m in Sources */,
 				6D6A1E781F1347020008D8FE /* PhotoEditingViewController.m in Sources */,
 				6D6A1E8A1F13883D0008D8FE /* ContentEditManager.m in Sources */,
 			);

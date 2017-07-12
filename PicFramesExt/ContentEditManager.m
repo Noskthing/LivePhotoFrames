@@ -42,11 +42,13 @@
             return frame.image;
         };
         
-        [self.delegate contentEditManager:self updateTime:[NSString stringWithFormat:@"%.2f/%.2f", CMTimeGetSeconds(self.livePhotoContext.photoTime), CMTimeGetSeconds(self.livePhotoContext.duration)] scaleValue:CMTimeGetSeconds(self.livePhotoContext.photoTime)/CMTimeGetSeconds(self.livePhotoContext.duration)];
+//        NSLog(@"duration value is %lld -- scale is %d",self.livePhotoContext.duration.value, self.livePhotoContext.duration.timescale
+//              );
+//        NSLog(@"phototime value is %lld -- scale is %d",self.livePhotoContext.photoTime.value, self.livePhotoContext.photoTime.timescale
+//              );
+        [self.delegate contentEditManager:self duration:CMTimeGetSeconds(self.livePhotoContext.duration) currentTime:CMTimeGetSeconds(self.livePhotoContext.photoTime)];
         [self.delegate contentEditManager:self updateLivePhoto:_input.livePhoto];
     }
-    
-    
 }
 
 
